@@ -45,7 +45,7 @@ const Contact = () => {
     } catch (error) {
       console.error(error);
       setStatus('error');
-      alert('Network error: Could not connect to the server. Please check your connection or wait 1 min for the server to wake up.');
+      alert(`Network error: ${error.message}. Please check the console (F12) for details.`);
     }
   };
 
