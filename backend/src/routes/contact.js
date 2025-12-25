@@ -9,14 +9,21 @@ const router = express.Router();
 // Helper to get transporter
 const getTransporter = () => {
     return nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
         },
-        connectionTimeout: 15000, // 15 seconds
-        greetingTimeout: 15000,
-        socketTimeout: 20000
+        tls: {
+            rejectUnauthorized: false // Helps in some cloud environments
+        },
+        pool: true, // Reuse connections
+        debug: true, // Log details to Render console
+        logger: true, // Log details to Render console
+        connectionTimeout: 20000,
+        greetingTimeout: 20000
     });
 };
 
