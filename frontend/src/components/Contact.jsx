@@ -40,7 +40,8 @@ const Contact = () => {
         setTimeout(() => setStatus('idle'), 3000); // Reset status after 3 seconds
       } else {
         setStatus('error');
-        alert(data.error || 'Failed to send message');
+        const errorMessage = data.details ? `${data.error}: ${data.details}` : (data.error || 'Failed to send message');
+        alert(errorMessage);
       }
     } catch (error) {
       console.error(error);

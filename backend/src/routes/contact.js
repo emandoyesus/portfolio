@@ -8,12 +8,11 @@ const router = express.Router();
 
 // Helper to get transporter
 const getTransporter = () => {
-    // We already checked in the route, but this is the Gmail config
     return nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
@@ -68,7 +67,10 @@ router.post('/', async (req, res) => {
         res.status(200).json({ message: 'Message received! Thank you.' });
     } catch (error) {
         console.error('Email/DB Error:', error);
-        res.status(500).json({ error: 'Failed to process message completely.' });
+        res.status(500).json({
+            error: 'Failed to process message.',
+            details: error.message
+        });
     }
 });
 
