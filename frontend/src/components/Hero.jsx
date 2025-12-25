@@ -92,7 +92,7 @@ const Hero = () => {
         }
 
         .greeting {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           color: var(--text-secondary);
           margin-bottom: 0.5rem;
           font-weight: 500;
@@ -104,7 +104,7 @@ const Hero = () => {
         }
 
         .description {
-          font-size: 1.25rem;
+          font-size: 1.1rem;
           color: var(--text-secondary);
           margin-bottom: 2.5rem;
           max-width: 500px;
@@ -151,8 +151,8 @@ const Hero = () => {
 
         .profile-container {
           position: relative;
-          width: 380px;
-          height: 380px;
+          width: 320px;
+          height: 320px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -171,8 +171,8 @@ const Hero = () => {
         }
 
         .profile-img {
-          width: 350px;
-          height: 350px;
+          width: 290px;
+          height: 290px;
           border-radius: 50%;
           object-fit: cover;
           border: 8px solid rgba(255, 255, 255, 0.05);
@@ -228,13 +228,13 @@ const Hero = () => {
           }
 
           .profile-container {
-            width: 280px;
-            height: 280px;
+            width: 260px;
+            height: 260px;
           }
 
           .profile-img {
-            width: 250px;
-            height: 250px;
+            width: 230px;
+            height: 230px;
           }
           
           .description {

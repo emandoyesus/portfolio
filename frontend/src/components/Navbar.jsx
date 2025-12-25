@@ -27,6 +27,7 @@ const Navbar = () => {
 
         <div className="desktop-menu">
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
+          <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
           <Link to="/projects" className={`nav-link ${isActive('/projects')}`}>Projects</Link>
           <Link to="/contact" className={`nav-link ${isActive('/contact')}`}>Contact</Link>
         </div>
@@ -38,6 +39,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="mobile-menu glass-card">
             <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+            <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
             <Link to="/projects" onClick={() => setIsOpen(false)}>Projects</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
           </div>
