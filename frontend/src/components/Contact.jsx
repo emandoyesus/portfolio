@@ -1,5 +1,6 @@
 import React from 'react';
 import { Send } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 const Contact = () => {
   const [status, setStatus] = React.useState('idle'); // idle, sending, success, error
@@ -15,7 +16,8 @@ const Contact = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -27,6 +29,12 @@ const Contact = () => {
 
       if (response.ok) {
         setStatus('success');
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#6d28d9', '#00d4ff', '#ffffff'] // Matching your theme
+        });
         e.target.reset();
         setTimeout(() => setStatus('idle'), 3000); // Reset status after 3 seconds
       } else {

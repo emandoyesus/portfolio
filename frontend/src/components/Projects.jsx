@@ -62,7 +62,8 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/projects');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${apiUrl}/api/projects`);
       if (!response.ok) throw new Error('Failed to fetch projects');
       const data = await response.json();
       setProjects(data);
@@ -114,9 +115,14 @@ const Projects = () => {
   return (
     <section id="projects" className="section">
       <div className="container">
-        <h2 className="heading-md">
-          Featured <span className="text-gradient">Projects</span>
-        </h2>
+        <div className="section-header">
+          <h2 className="heading-md">
+            Past Project <span className="text-gradient">Experience</span>
+          </h2>
+          <p className="section-description animate-fade-in">
+            Explore the projects I've worked on so far
+          </p>
+        </div>
 
         {loading ? (
           <div className="projects-grid">
@@ -174,6 +180,13 @@ const Projects = () => {
       </div>
 
       <style>{`
+        .section-description {
+          color: var(--text-secondary);
+          margin-top: 1rem;
+          font-size: 1.1rem;
+          max-width: 600px;
+        }
+
         .projects-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

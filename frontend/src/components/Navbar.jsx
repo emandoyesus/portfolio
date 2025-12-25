@@ -29,6 +29,7 @@ const Navbar = () => {
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
           <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
           <Link to="/projects" className={`nav-link ${isActive('/projects')}`}>Projects</Link>
+          <Link to="/certificates" className={`nav-link ${isActive('/certificates')}`}>Certificates</Link>
           <Link to="/contact" className={`nav-link ${isActive('/contact')}`}>Contact</Link>
         </div>
 
@@ -38,10 +39,11 @@ const Navbar = () => {
 
         {isOpen && (
           <div className="mobile-menu glass-card">
-            <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
-            <Link to="/projects" onClick={() => setIsOpen(false)}>Projects</Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+            <Link to="/" className={`mobile-nav-link ${isActive('/')}`} onClick={() => setIsOpen(false)}>Home</Link>
+            <Link to="/about" className={`mobile-nav-link ${isActive('/about')}`} onClick={() => setIsOpen(false)}>About</Link>
+            <Link to="/projects" className={`mobile-nav-link ${isActive('/projects')}`} onClick={() => setIsOpen(false)}>Projects</Link>
+            <Link to="/certificates" className={`mobile-nav-link ${isActive('/certificates')}`} onClick={() => setIsOpen(false)}>Certificates</Link>
+            <Link to="/contact" className={`mobile-nav-link ${isActive('/contact')}`} onClick={() => setIsOpen(false)}>Contact</Link>
           </div>
         )}
       </div>
@@ -136,6 +138,11 @@ const Navbar = () => {
         .mobile-menu a {
           color: white;
           font-weight: 500;
+          transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link.active {
+          color: var(--accent-color) !important;
         }
 
         @media (max-width: 768px) {

@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
+import CertificatesPage from './pages/CertificatesPage';
 import PageTransition from './components/PageTransition';
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
             <Route path="/projects" element={
               <PageTransition variant="scaleUp">
                 <ProjectsPage />
+              </PageTransition>
+            } />
+            <Route path="/certificates" element={
+              <PageTransition variant="slideRight">
+                <CertificatesPage />
               </PageTransition>
             } />
             <Route path="/contact" element={

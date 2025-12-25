@@ -7,25 +7,25 @@ export const pageVariants = {
         initial: { opacity: 0, y: 30 },
         animate: { opacity: 1, y: 0 },
         exit: { opacity: 0, y: -30 },
-        transition: { duration: 0.3, ease: "easeOut" }
+        transition: { duration: 0.4, ease: "easeOut" }
     },
     slideRight: {
         initial: { opacity: 0, x: 100 },
         animate: { opacity: 1, x: 0 },
         exit: { opacity: 0, x: -100 },
-        transition: { duration: 0.25, ease: "easeInOut" }
+        transition: { duration: 0.4, ease: "easeInOut" }
     },
     scaleUp: {
         initial: { opacity: 0, scale: 0.9 },
         animate: { opacity: 1, scale: 1 },
         exit: { opacity: 0, scale: 1.1 },
-        transition: { duration: 0.25, ease: "easeOut" }
+        transition: { duration: 0.35, ease: "easeOut" }
     },
     flip: {
         initial: { opacity: 0, rotateY: 90 },
         animate: { opacity: 1, rotateY: 0 },
         exit: { opacity: 0, rotateY: -90 },
-        transition: { duration: 0.3 }
+        transition: { duration: 0.45 }
     }
 };
 
