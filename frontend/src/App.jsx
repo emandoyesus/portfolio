@@ -1,21 +1,43 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
+import PageTransition from './components/PageTransition';
 
 function App() {
+  const location = useLocation();
+
   return (
     <div className="app">
       <Navbar />
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={
+              <PageTransition variant="fadeUp">
+                <HomePage />
+              </PageTransition>
+            } />
+            <Route path="/about" element={
+              <PageTransition variant="slideRight">
+                <AboutPage />
+              </PageTransition>
+            } />
+            <Route path="/projects" element={
+              <PageTransition variant="scaleUp">
+                <ProjectsPage />
+              </PageTransition>
+            } />
+            <Route path="/contact" element={
+              <PageTransition variant="flip">
+                <ContactPage />
+              </PageTransition>
+            } />
+          </Routes>
+        </AnimatePresence>
       </main>
     </div>
   );

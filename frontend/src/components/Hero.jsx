@@ -33,7 +33,7 @@ const Hero = () => {
             <a href="https://www.linkedin.com/in/emandoyesus" target="_blank" className="social-icon"><Linkedin size={24} /></a>
             <a href="mailto:emmandoyesus@gmail.com" target="_blank" className="social-icon"><Mail size={24} /></a>
             <a href="https://t.me/vintage_01" target="_blank" rel="noopener noreferrer" className="social-icon" title="Telegram">
-              <Send size={24} />
+              <Send size={18} />
             </a>
           </div>
         </div>

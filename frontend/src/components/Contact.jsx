@@ -2,9 +2,41 @@ import React from 'react';
 import { Send } from 'lucide-react';
 
 const Contact = () => {
-  const handleSubmit = (e) => {
+  const [status, setStatus] = React.useState('idle'); // idle, sending, success, error
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Message sent! (Demo only)');
+    setStatus('sending');
+
+    const formData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      message: e.target.message.value
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        e.target.reset();
+        setTimeout(() => setStatus('idle'), 3000); // Reset status after 3 seconds
+      } else {
+        setStatus('error');
+        alert(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -46,8 +78,8 @@ const Contact = () => {
               <textarea id="message" className="form-input" rows="5" placeholder="Your message..." required></textarea>
             </div>
 
-            <button type="submit" className="btn btn-primary">
-              Send Message <Send size={18} />
+            <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : status === 'success' ? 'Sent!' : 'Send Message'} <Send size={18} />
             </button>
           </form>
         </div>

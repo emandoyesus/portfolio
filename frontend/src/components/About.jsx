@@ -1,106 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
+import profileImg from '../assets/profile.jpg';
 import {
     Code2,
     Database,
     Server,
     Layout,
     Settings,
-    Smartphone,
     Globe,
-    Cpu,
-    Layers,
     Terminal,
-    Brain,
+    Cpu,
     GitBranch,
-    Figma
+    Figma,
+    Smartphone,
+    Layers
 } from 'lucide-react';
 
 const About = () => {
-    const skillCategories = [
-        {
-            title: "Frontend Development",
-            icon: <Layout className="category-icon" />,
-            skills: [
-                { name: "React", level: "Expert" },
-                { name: "Next.js", level: "Advanced" },
-                { name: "TypeScript", level: "Advanced" },
-                { name: "Tailwind CSS", level: "Expert" },
-                { name: "Framer Motion", level: "Intermediate" }
-            ]
-        },
-        {
-            title: "Backend Engineering",
-            icon: <Server className="category-icon" />,
-            skills: [
-                { name: "Node.js", level: "Advanced" },
-                { name: "Express", level: "Advanced" },
-                { name: "PostgreSQL", level: "Intermediate" },
-                { name: "Python", level: "Intermediate" },
-                { name: "Redis", level: "Basic" }
-            ]
-        },
-        {
-            title: "Tools & DevOps",
-            icon: <Settings className="category-icon" />,
-            skills: [
-                { name: "Git & GitHub", level: "Expert" },
-                { name: "Docker", level: "Intermediate" },
-                { name: "AWS", level: "Basic" },
-                { name: "Figma", level: "Intermediate" },
-                { name: "Linux", level: "Advanced" }
-            ]
-        }
+    const [activeTab, setActiveTab] = useState('stack');
+
+    const techStack = [
+        { name: "React", icon: <Code2 /> },
+        { name: "Next.js", icon: <Globe /> },
+        { name: "Node.js", icon: <Server /> },
+        { name: "TypeScript", icon: <Terminal /> },
+        { name: "Tailwind", icon: <Layout /> },
+        { name: "PostgreSQL", icon: <Database /> },
+        { name: "Python", icon: <Settings /> },
+        { name: "Javascript", icon: <Code2 /> }
     ];
+
+    const tools = [
+        { name: "Git", icon: <GitBranch /> },
+        { name: "Docker", icon: <Layers /> },
+        { name: "Figma", icon: <Figma /> },
+        { name: "VS Code", icon: <Cpu /> },
+        { name: "Linux", icon: <Terminal /> },
+        { name: "Postman", icon: <Globe /> }
+    ];
+
+    const displayedSkills = activeTab === 'stack' ? techStack : tools;
 
     return (
         <section id="about" className="section about-section">
             <div className="container">
 
-                {/* Bio Section */}
+                {/* About Me Section */}
                 <div className="about-header animate-fade-in">
-                    <h2 className="heading-md">About <span className="text-gradient">Me</span></h2>
-                    <div className="bio-content glass-card">
-                        <p className="bio-text">
-                            I'm <span className="highlight">Emandoyesus Tesfaye</span>, a passionate Full Stack Developer based in Mekelle, Ethiopia.
-                            My journey in tech started with a curiosity for how things work, which rapidly evolved into a love for building
-                            robust, scalable applications.
-                        </p>
-                        <p className="bio-text">
-                            I specialize in the <strong>MERN stack</strong> and modern web technologies. Whether I'm designing a pixel-perfect
-                            frontend or architecting a complex backend API, I'm driven by the goal of creating seamless digital experiences.
-                            When I'm not coding, you can find me exploring new open-source projects or learning about the latest advancements in AI.
-                        </p>
+                    <div className="section-title-wrapper">
+                        <h2 className="section-title">About Me</h2>
+                        <div className="title-line"></div>
+                    </div>
+
+                    <div className="about-card glass-card">
+                        <div className="about-image-wrapper">
+                            <div className="image-circle">
+                                <img src={profileImg} alt="About Me" />
+                            </div>
+                        </div>
+                        <div className="about-content">
+                            <p className="bio-text">
+                                Hi everyone! My name is <span className="highlight">Emandoyesus Tesfaye</span>. I'm a Full Stack developer
+                                from Ethiopia. I have experience in web development using modern technologies.
+                                I really enjoy what I do right now; in my opinion, creating programs is not just a job,
+                                but also an art that has aesthetic value.
+                            </p>
+                            <p className="bio-text">
+                                My job is to build your idea to be functional and user-friendly yet still attractive.
+                                In addition, I provide a personal touch to your product and ensure that the product catches
+                                attention and is easy to use. My goal is to convey your message and identity in the most
+                                creative way. If you are interested in hiring me, please contact me!
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Tech Stack Section */}
-                <div className="tech-stack-section animate-fade-in delay-200">
-                    <h3 className="heading-md">My <span className="text-gradient">Tech Stack</span></h3>
+                {/* Skills Section */}
+                <div className="skills-section animate-fade-in delay-200">
+                    <div className="section-title-wrapper">
+                        <h2 className="section-title">Skills</h2>
+                        <div className="title-line"></div>
+                    </div>
+
+                    <div className="skills-tabs">
+                        <button
+                            className={`tab-btn ${activeTab === 'stack' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('stack')}
+                        >
+                            Tech Stack
+                        </button>
+                        <button
+                            className={`tab-btn ${activeTab === 'tools' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('tools')}
+                        >
+                            Tools
+                        </button>
+                    </div>
 
                     <div className="skills-grid">
-                        {skillCategories.map((category, index) => (
-                            <div key={index} className="skill-card glass-card">
-                                <div className="skill-header">
-                                    {category.icon}
-                                    <h4>{category.title}</h4>
-                                </div>
-                                <div className="skill-list">
-                                    {category.skills.map((skill, idx) => (
-                                        <div key={idx} className="skill-item">
-                                            <span className="skill-name">{skill.name}</span>
-                                            <div className="skill-bar-bg">
-                                                <div
-                                                    className="skill-bar-fill"
-                                                    style={{
-                                                        width: skill.level === 'Expert' ? '95%' :
-                                                            skill.level === 'Advanced' ? '85%' :
-                                                                skill.level === 'Intermediate' ? '70%' : '50%'
-                                                    }}
-                                                ></div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                        {displayedSkills.map((skill, index) => (
+                            <div key={index} className="skill-box glass-card">
+                                <div className="skill-icon">{skill.icon}</div>
+                                <span className="skill-name">{skill.name}</span>
                             </div>
                         ))}
                     </div>
@@ -109,95 +109,145 @@ const About = () => {
             </div>
 
             <style>{`
-        .about-header {
-          margin-bottom: 5rem;
+        .about-section {
+          padding-top: 120px;
         }
 
-        .bio-content {
-          padding: 2.5rem;
-          line-height: 1.8;
-          font-size: 1.1rem;
-          color: var(--text-secondary);
-        }
-
-        .bio-text {
-          margin-bottom: 1.5rem;
-        }
-        
-        .bio-text:last-child {
-          margin-bottom: 0;
-        }
-
-        .highlight {
-          color: var(--accent-color);
-          font-weight: 600;
-        }
-
-        .skills-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 2rem;
-        }
-
-        .skill-card {
-          padding: 2rem;
-        }
-
-        .skill-header {
+        .section-title-wrapper {
           display: flex;
           align-items: center;
           gap: 1rem;
           margin-bottom: 2rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid var(--glass-border);
         }
 
-        .category-icon {
-          color: var(--primary-color);
-          width: 32px;
-          height: 32px;
-        }
-
-        .skill-header h4 {
-          font-size: 1.25rem;
+        .section-title {
+          font-size: 2rem;
           font-weight: 700;
           color: white;
+          white-space: nowrap;
         }
 
-        .skill-list {
+        .title-line {
+          height: 2px;
+          background: var(--primary-color);
+          width: 100px;
+          border-radius: 2px;
+        }
+
+        .about-card {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          gap: 3rem;
+          padding: 3rem;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.03); /* Changed from #111 to glass variable */
+          border: 1px solid var(--glass-border);
+        }
+
+        .about-image-wrapper {
           display: flex;
-          flex-direction: column;
-          gap: 1.25rem;
+          justify-content: center;
         }
 
-        .skill-item {
-          width: 100%;
-        }
-
-        .skill-name {
-          display: block;
-          font-size: 0.95rem;
-          margin-bottom: 0.5rem;
-          color: var(--text-primary);
-        }
-
-        .skill-bar-bg {
-          width: 100%;
-          height: 6px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
+        .image-circle {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          border: 4px solid var(--primary-color);
+          padding: 5px;
           overflow: hidden;
         }
 
-        .skill-bar-fill {
+        .image-circle img {
+          width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-          border-radius: 10px;
-          transition: width 1s ease-out;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .bio-text {
+          color: var(--text-secondary); /* Updated variable */
+          font-size: 1.05rem;
+          line-height: 1.8;
+          margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+          color: var(--primary-color);
+          font-weight: 600;
+        }
+
+        /* Skills */
+        .skills-section {
+          margin-top: 5rem;
+        }
+
+        .skills-tabs {
+          display: flex;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+          font-size: 1rem;
+          font-weight: 600;
+          color: var(--text-secondary);
+          padding-bottom: 0.5rem;
+          border-bottom: 2px solid transparent;
+          transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+          color: white;
+        }
+
+        .tab-btn.active {
+          color: var(--primary-color);
+          border-bottom-color: var(--primary-color);
+        }
+
+        .skills-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .skill-box {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.25rem;
+          border: 1px solid var(--glass-border);
+          background: rgba(255, 255, 255, 0.03);
+          transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .skill-box:hover {
+          transform: translateY(-5px);
+          border-color: var(--primary-color);
+        }
+
+        .skill-icon {
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
         }
         
-        .skill-card:hover .skill-bar-fill {
-           filter: brightness(1.2);
+        .skill-name {
+          font-weight: 600;
+          color: white;
+        }
+
+        @media (max-width: 968px) {
+          .about-card {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 2rem;
+          }
+
+          .image-circle {
+            margin: 0 auto;
+          }
         }
       `}</style>
         </section>

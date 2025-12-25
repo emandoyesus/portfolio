@@ -12,7 +12,10 @@ app.get('/', (req, res) => {
   res.json({ message: 'Portfolio API is running' });
 });
 
+import contactRoute from './routes/contact.js';
+
 app.use('/api/projects', projectsRoute);
+app.use('/api/contact', contactRoute);
 
 app.use(errorHandler);
 
