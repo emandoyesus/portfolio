@@ -30,6 +30,9 @@ const Contact = () => {
 
       if (response.ok) {
         setStatus('success');
+        if (data.warning) {
+          alert(`Message saved, but email failed: ${data.warning}. Please check your Gmail App Password.`);
+        }
         confetti({
           particleCount: 150,
           spread: 70,
