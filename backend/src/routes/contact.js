@@ -11,12 +11,13 @@ const getTransporter = () => {
     return nodemailer.createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // true for 465, false for other ports
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
-        }
+        },
+        connectionTimeout: 10000 // 10 seconds timeout
     });
 };
 
@@ -28,47 +29,47 @@ router.post('/', async (req, res) => {
     }
 
     try {
-        // 1. Save to Database (Always do this first)
-        await saveMessage({ name, email, message });
-        console.log('Message saved to database.');
+        // 1. Save to Database
+        try {
+            await saveMessage({ name, email, message });
+            console.log('✅ Message saved to database.');
+        } catch (dbError) {
+            console.error('❌ Database Error:', dbError);
+            throw new Error(`Database connection failed: ${dbError.message}`);
+        }
 
-        // 2. Check if we should send a real email
+        // 2. Send Email
         const hasCredentials = process.env.EMAIL_USER &&
             process.env.EMAIL_USER !== 'your-email@gmail.com' &&
             process.env.EMAIL_PASS &&
             process.env.EMAIL_PASS !== 'your-app-password';
 
         if (hasCredentials) {
-            const transporter = getTransporter();
-
-            const mailOptions = {
-                from: process.env.EMAIL_USER, // Gmail requires this to be your email
-                replyTo: email,              // This allows you to reply to the sender
-                to: process.env.EMAIL_USER,    // You are sending it to yourself
-                subject: `New Portfolio Message from ${name}`,
-                html: `
-                    <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee;">
-                        <h2 style="color: #6d28d9;">New Contact Submission</h2>
-                        <p><strong>Name:</strong> ${name}</p>
-                        <p><strong>Email:</strong> ${email}</p>
-                        <hr />
-                        <p><strong>Message:</strong></p>
-                        <p style="white-space: pre-wrap;">${message}</p>
-                    </div>
-                `
-            };
-
-            await transporter.sendMail(mailOptions);
-            console.log('Email sent successfully via Gmail.');
-        } else {
-            console.warn('Real email credentials not set or still placeholders. Message only saved to DB.');
+            try {
+                const transporter = getTransporter();
+                await transporter.sendMail({
+                    from: process.env.EMAIL_USER,
+                    replyTo: email,
+                    to: process.env.EMAIL_USER,
+                    subject: `New Portfolio Message from ${name}`,
+                    html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`
+                });
+                console.log('✅ Email sent successfully.');
+            } catch (mailError) {
+                console.error('❌ Email Error:', mailError);
+                // We don't throw here so the user at least knows the DB part worked
+                return res.status(200).json({
+                    message: 'Message saved to database, but notification email failed.',
+                    warning: mailError.message
+                });
+            }
         }
 
         res.status(200).json({ message: 'Message received! Thank you.' });
     } catch (error) {
-        console.error('Email/DB Error:', error);
+        console.error('General Error:', error);
         res.status(500).json({
-            error: 'Failed to process message.',
+            error: 'Server error',
             details: error.message
         });
     }
