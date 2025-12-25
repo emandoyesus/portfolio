@@ -1,31 +1,9 @@
 import express from 'express';
-import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { saveMessage } from '../models/messageModel.js';
 
 dotenv.config();
 const router = express.Router();
-
-// Helper to get transporter
-const getTransporter = () => {
-    return nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        },
-        tls: {
-            rejectUnauthorized: false // Helps in some cloud environments
-        },
-        pool: true, // Reuse connections
-        debug: true, // Log details to Render console
-        logger: true, // Log details to Render console
-        connectionTimeout: 20000,
-        greetingTimeout: 20000
-    });
-};
 
 router.post('/', async (req, res) => {
     const { name, email, message } = req.body;
@@ -44,31 +22,50 @@ router.post('/', async (req, res) => {
             throw new Error(`Database connection failed: ${dbError.message}`);
         }
 
-        // 2. Send Email
-        const hasCredentials = process.env.EMAIL_USER &&
-            process.env.EMAIL_USER !== 'your-email@gmail.com' &&
-            process.env.EMAIL_PASS &&
-            process.env.EMAIL_PASS !== 'your-app-password';
+        // 2. Send Email via Resend API (HTTP bypasses Render blocks)
+        const apiKey = process.env.RESEND_API_KEY;
 
-        if (hasCredentials) {
+        if (apiKey) {
             try {
-                const transporter = getTransporter();
-                await transporter.sendMail({
-                    from: process.env.EMAIL_USER,
-                    replyTo: email,
-                    to: process.env.EMAIL_USER,
-                    subject: `New Portfolio Message from ${name}`,
-                    html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`
+                const response = await fetch('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        from: 'Portfolio <onboarding@resend.dev>', // Resend's default free domain
+                        to: process.env.EMAIL_USER, // Your Gmail
+                        reply_to: email,
+                        subject: `New Portfolio Message from ${name}`,
+                        html: `
+                            <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee;">
+                                <h2 style="color: #6d28d9;">New Contact Submission</h2>
+                                <p><strong>Name:</strong> ${name}</p>
+                                <p><strong>Email:</strong> ${email}</p>
+                                <hr />
+                                <p><strong>Message:</strong></p>
+                                <p style="white-space: pre-wrap;">${message}</p>
+                            </div>
+                        `
+                    })
                 });
-                console.log('✅ Email sent successfully.');
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Resend API failed');
+                }
+
+                console.log('✅ Email sent successfully via Resend API.');
             } catch (mailError) {
                 console.error('❌ Email Error:', mailError);
-                // We don't throw here so the user at least knows the DB part worked
                 return res.status(200).json({
                     message: 'Message saved to database, but notification email failed.',
                     warning: mailError.message
                 });
             }
+        } else {
+            console.warn('⚠️ RESEND_API_KEY not found. Skipping email notification.');
         }
 
         res.status(200).json({ message: 'Message received! Thank you.' });
