@@ -17,6 +17,7 @@ const Contact = () => {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      console.log('Connecting to API at:', apiUrl);
       const response = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
         headers: {
@@ -44,6 +45,7 @@ const Contact = () => {
     } catch (error) {
       console.error(error);
       setStatus('error');
+      alert('Network error: Could not connect to the server. Please check your connection or wait 1 min for the server to wake up.');
     }
   };
 

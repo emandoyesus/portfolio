@@ -6,7 +6,7 @@ import errorHandler from './middleware/errorHandler.js';
 const app = express();
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || true, // 'true' reflects the request origin, which is great for debugging
   credentials: true
 }));
 app.use(express.json());
