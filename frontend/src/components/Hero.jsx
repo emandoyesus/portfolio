@@ -225,8 +225,8 @@ const Hero = () => {
 
           .hero-visual {
             order: 1;
-            margin-bottom: 3rem;
-            margin-top: 3rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
           }
 
           .profile-container {
