@@ -357,14 +357,24 @@ const Projects = () => {
         }
 
         @media (max-width: 768px) {
+          .projects-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+
+          .project-title {
+            font-size: 1.25rem;
+          }
+
+          .project-article {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0;
+          }
+
           .tech-tag {
             background: rgba(255, 255, 255, 0.03);
             color: var(--text-secondary);
             border-color: var(--glass-border);
-          }
-          
-          .project-article {
-            background: rgba(0, 0, 0, 0.2);
           }
         }
       `}</style>

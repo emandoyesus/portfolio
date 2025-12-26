@@ -265,6 +265,16 @@ const About = () => {
             text-decoration: underline;
             text-decoration-color: var(--primary-color);
           }
+
+          .bio-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+          }
+
+          .skills-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+          }
         }
       `}</style>
     </section>

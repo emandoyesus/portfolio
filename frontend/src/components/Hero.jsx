@@ -241,6 +241,18 @@ const Hero = () => {
           .description {
             margin-left: auto;
             margin-right: auto;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+          }
+
+          .cta-group {
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+          }
+
+          .socials {
+            justify-content: center;
+            gap: 1.25rem;
           }
 
           .profile-img {

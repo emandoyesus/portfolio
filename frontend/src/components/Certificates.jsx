@@ -271,6 +271,14 @@ const Certificates = () => {
             border: 1px solid var(--glass-border);
             color: white;
           }
+
+          .cert-title {
+            font-size: 1.1rem;
+          }
+
+          .cert-issuer {
+            font-size: 0.85rem;
+          }
         }
       `}</style>
     </section>

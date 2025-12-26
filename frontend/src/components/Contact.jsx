@@ -188,8 +188,17 @@ const Contact = () => {
         @media (max-width: 768px) {
           .contact-wrapper {
             grid-template-columns: 1fr;
-            padding: 2rem;
-            gap: 2rem;
+            padding: 1.5rem;
+            gap: 2.5rem;
+          }
+
+          .contact-text {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+          }
+
+          .footer {
+            margin-top: 4rem;
           }
         }
       `}</style>
