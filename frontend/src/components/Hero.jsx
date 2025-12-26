@@ -88,7 +88,7 @@ const Hero = () => {
           border: 1px solid rgba(109, 40, 217, 0.2);
           font-weight: 600;
           font-size: 0.9rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 0.75rem;
         }
 
         .greeting {
@@ -183,13 +183,13 @@ const Hero = () => {
 
         .floating-badge {
           position: absolute;
-          padding: 0.75rem 1.5rem;
+          padding: 0.5rem 1rem;
           background: rgba(18, 18, 23, 0.8);
           backdrop-filter: blur(12px);
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: var(--radius-md);
           font-weight: 600;
-          font-size: 0.9rem;
+          font-size: 0.75rem;
           color: white;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
           z-index: 2;
