@@ -273,6 +273,11 @@ const Hero = () => {
             border-color: var(--glass-border);
             color: var(--text-secondary);
           }
+
+          .heading-lg { 
+            font-size: 1.8rem; 
+            line-height: 1.2;
+          }
         }
       `}</style>
     </section>
