@@ -242,6 +242,24 @@ const Hero = () => {
             margin-left: auto;
             margin-right: auto;
           }
+
+          .profile-img {
+            filter: grayscale(0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+          }
+
+          .glow-circle {
+            opacity: 0.1;
+            filter: blur(100px);
+            width: 300px;
+            height: 300px;
+          }
+
+          .floating-badge {
+            background: rgba(18, 18, 23, 0.95);
+            border-color: var(--glass-border);
+            color: var(--text-secondary);
+          }
         }
       `}</style>
     </section>

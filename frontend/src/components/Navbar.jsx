@@ -142,7 +142,9 @@ const Navbar = () => {
         }
 
         .mobile-nav-link.active {
-          color: var(--accent-color) !important;
+          color: var(--text-primary) !important;
+          border-left: 2px solid var(--primary-color);
+          padding-left: 8px;
         }
 
         @media (max-width: 768px) {

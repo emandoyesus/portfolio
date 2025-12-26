@@ -355,6 +355,18 @@ const Projects = () => {
           50% { background-color: rgba(255,255,255,0.05); }
           100% { background-color: rgba(255,255,255,0.02); }
         }
+
+        @media (max-width: 768px) {
+          .tech-tag {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            border-color: var(--glass-border);
+          }
+          
+          .project-article {
+            background: rgba(0, 0, 0, 0.2);
+          }
+        }
       `}</style>
     </section>
   );

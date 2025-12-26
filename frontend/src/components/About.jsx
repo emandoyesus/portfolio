@@ -1,114 +1,114 @@
 import React, { useState } from 'react';
 import profileImg from '../assets/profile.jpg';
 import {
-    Code2,
-    Database,
-    Server,
-    Layout,
-    Settings,
-    Globe,
-    Terminal,
-    Cpu,
-    GitBranch,
-    Figma,
-    Smartphone,
-    Layers
+  Code2,
+  Database,
+  Server,
+  Layout,
+  Settings,
+  Globe,
+  Terminal,
+  Cpu,
+  GitBranch,
+  Figma,
+  Smartphone,
+  Layers
 } from 'lucide-react';
 
 const About = () => {
-    const [activeTab, setActiveTab] = useState('stack');
+  const [activeTab, setActiveTab] = useState('stack');
 
-    const techStack = [
-        { name: "React", icon: <Code2 /> },
-        { name: "Next.js", icon: <Globe /> },
-        { name: "Node.js", icon: <Server /> },
-        { name: "TypeScript", icon: <Terminal /> },
-        { name: "Tailwind", icon: <Layout /> },
-        { name: "PostgreSQL", icon: <Database /> },
-        { name: "Python", icon: <Settings /> },
-        { name: "Javascript", icon: <Code2 /> }
-    ];
+  const techStack = [
+    { name: "React", icon: <Code2 /> },
+    { name: "Next.js", icon: <Globe /> },
+    { name: "Node.js", icon: <Server /> },
+    { name: "TypeScript", icon: <Terminal /> },
+    { name: "Tailwind", icon: <Layout /> },
+    { name: "PostgreSQL", icon: <Database /> },
+    { name: "Python", icon: <Settings /> },
+    { name: "Javascript", icon: <Code2 /> }
+  ];
 
-    const tools = [
-        { name: "Git", icon: <GitBranch /> },
-        { name: "Docker", icon: <Layers /> },
-        { name: "Figma", icon: <Figma /> },
-        { name: "VS Code", icon: <Cpu /> },
-        { name: "Linux", icon: <Terminal /> },
-        { name: "Postman", icon: <Globe /> }
-    ];
+  const tools = [
+    { name: "Git", icon: <GitBranch /> },
+    { name: "Docker", icon: <Layers /> },
+    { name: "Figma", icon: <Figma /> },
+    { name: "VS Code", icon: <Cpu /> },
+    { name: "Linux", icon: <Terminal /> },
+    { name: "Postman", icon: <Globe /> }
+  ];
 
-    const displayedSkills = activeTab === 'stack' ? techStack : tools;
+  const displayedSkills = activeTab === 'stack' ? techStack : tools;
 
-    return (
-        <section id="about" className="section about-section">
-            <div className="container">
+  return (
+    <section id="about" className="section about-section">
+      <div className="container">
 
-                {/* About Me Section */}
-                <div className="about-header animate-fade-in">
-                    <div className="section-title-wrapper">
-                        <h2 className="section-title">About Me</h2>
-                        <div className="title-line"></div>
-                    </div>
+        {/* About Me Section */}
+        <div className="about-header animate-fade-in">
+          <div className="section-title-wrapper">
+            <h2 className="section-title">About Me</h2>
+            <div className="title-line"></div>
+          </div>
 
-                    <div className="about-card glass-card">
-                        <div className="about-image-wrapper">
-                            <div className="image-circle">
-                                <img src={profileImg} alt="About Me" />
-                            </div>
-                        </div>
-                        <div className="about-content">
-                            <p className="bio-text">
-                                Hi everyone! My name is <span className="highlight">Emandoyesus Tesfaye</span>. I'm a Full Stack developer
-                                from Ethiopia. I have experience in web development using modern technologies.
-                                I really enjoy what I do right now; in my opinion, creating programs is not just a job,
-                                but also an art that has aesthetic value.
-                            </p>
-                            <p className="bio-text">
-                                My job is to build your idea to be functional and user-friendly yet still attractive.
-                                In addition, I provide a personal touch to your product and ensure that the product catches
-                                attention and is easy to use. My goal is to convey your message and identity in the most
-                                creative way. If you are interested in hiring me, please contact me!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Skills Section */}
-                <div className="skills-section animate-fade-in delay-200">
-                    <div className="section-title-wrapper">
-                        <h2 className="section-title">Skills</h2>
-                        <div className="title-line"></div>
-                    </div>
-
-                    <div className="skills-tabs">
-                        <button
-                            className={`tab-btn ${activeTab === 'stack' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('stack')}
-                        >
-                            Tech Stack
-                        </button>
-                        <button
-                            className={`tab-btn ${activeTab === 'tools' ? 'active' : ''}`}
-                            onClick={() => setActiveTab('tools')}
-                        >
-                            Tools
-                        </button>
-                    </div>
-
-                    <div className="skills-grid">
-                        {displayedSkills.map((skill, index) => (
-                            <div key={index} className="skill-box glass-card">
-                                <div className="skill-icon">{skill.icon}</div>
-                                <span className="skill-name">{skill.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
+          <div className="about-card glass-card">
+            <div className="about-image-wrapper">
+              <div className="image-circle">
+                <img src={profileImg} alt="About Me" />
+              </div>
             </div>
+            <div className="about-content">
+              <p className="bio-text">
+                Hi everyone! My name is <span className="highlight">Emandoyesus Tesfaye</span>. I'm a Full Stack developer
+                from Ethiopia. I have experience in web development using modern technologies.
+                I really enjoy what I do right now; in my opinion, creating programs is not just a job,
+                but also an art that has aesthetic value.
+              </p>
+              <p className="bio-text">
+                My job is to build your idea to be functional and user-friendly yet still attractive.
+                In addition, I provide a personal touch to your product and ensure that the product catches
+                attention and is easy to use. My goal is to convey your message and identity in the most
+                creative way. If you are interested in hiring me, please contact me!
+              </p>
+            </div>
+          </div>
+        </div>
 
-            <style>{`
+        {/* Skills Section */}
+        <div className="skills-section animate-fade-in delay-200">
+          <div className="section-title-wrapper">
+            <h2 className="section-title">Skills</h2>
+            <div className="title-line"></div>
+          </div>
+
+          <div className="skills-tabs">
+            <button
+              className={`tab-btn ${activeTab === 'stack' ? 'active' : ''}`}
+              onClick={() => setActiveTab('stack')}
+            >
+              Tech Stack
+            </button>
+            <button
+              className={`tab-btn ${activeTab === 'tools' ? 'active' : ''}`}
+              onClick={() => setActiveTab('tools')}
+            >
+              Tools
+            </button>
+          </div>
+
+          <div className="skills-grid">
+            {displayedSkills.map((skill, index) => (
+              <div key={index} className="skill-box glass-card">
+                <div className="skill-icon">{skill.icon}</div>
+                <span className="skill-name">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <style>{`
         .about-section {
           padding-top: 120px;
         }
@@ -247,11 +247,28 @@ const About = () => {
 
           .image-circle {
             margin: 0 auto;
+            filter: grayscale(0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+
+          .skill-icon {
+            color: var(--text-secondary);
+          }
+
+          .tab-btn.active {
+            color: white;
+            border-bottom-color: var(--primary-color);
+          }
+
+          .highlight {
+            color: white;
+            text-decoration: underline;
+            text-decoration-color: var(--primary-color);
           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 };
 
 export default About;

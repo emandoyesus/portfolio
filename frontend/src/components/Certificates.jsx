@@ -259,6 +259,18 @@ const Certificates = () => {
           .certificates-grid {
             grid-template-columns: 1fr;
           }
+          
+          .cert-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            border-color: var(--glass-border);
+          }
+
+          .cert-link {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+          }
         }
       `}</style>
     </section>
