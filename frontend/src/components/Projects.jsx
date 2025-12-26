@@ -204,7 +204,7 @@ const Projects = () => {
         }
 
         .section-title {
-          font-size: 1.75rem;
+          font-size: 2rem;
           font-weight: 700;
           color: white;
           white-space: nowrap;
@@ -220,7 +220,7 @@ const Projects = () => {
 
         .section-description {
           color: var(--text-secondary);
-          font-size: 1rem;
+          font-size: 1.05rem;
           max-width: 600px;
         }
 
@@ -337,7 +337,7 @@ const Projects = () => {
         }
 
         .project-title {
-          font-size: 1.35rem;
+          font-size: 1.4rem;
           font-weight: 700;
           margin-bottom: 0.625rem;
           color: white;
@@ -346,7 +346,7 @@ const Projects = () => {
 
         .project-desc {
           color: var(--text-secondary);
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           margin-bottom: 1.25rem;
           line-height: 1.6;
         }
@@ -359,7 +359,7 @@ const Projects = () => {
         }
 
         .tech-tag {
-          font-size: 0.7rem;
+          font-size: 0.75rem;
           padding: 0.3rem 0.75rem;
           border-radius: 100px;
           background: rgba(109, 40, 217, 0.1);
