@@ -21,6 +21,7 @@ const Navbar = () => {
       <div className="container nav-content">
         <Link to="/" className="nav-logo">
           <Code2 size={24} color="var(--accent-color)" />
+          <span className="logo-text">Portfolio</span>
         </Link>
 
         <div className="nav-links">
@@ -53,19 +54,28 @@ const Navbar = () => {
         .nav-content {
           display: flex;
           align-items: center;
-          justify-content: center; /* Center the group for a balanced look */
-          gap: 2.5rem; /* Exactly the same gap between logo and links */
+          justify-content: space-between;
+          gap: 2rem;
         }
 
         .nav-logo {
           display: flex;
           align-items: center;
-          justify-content: center;
+          gap: 0.5rem;
           transition: transform 0.3s ease;
         }
 
+        .logo-text {
+          font-size: 1.25rem;
+          font-weight: 700;
+          background: linear-gradient(to right, #fff, #a1a1aa);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
         .nav-logo:hover {
-          transform: scale(1.1) rotate(10deg);
+          transform: scale(1.05);
         }
 
         .nav-links {
@@ -103,8 +113,13 @@ const Navbar = () => {
         }
 
         @media (max-width: 768px) {
+          .logo-text {
+            display: none;
+          }
+
           .nav-content {
             gap: 1.2rem;
+            justify-content: center;
           }
           
           .nav-links {
