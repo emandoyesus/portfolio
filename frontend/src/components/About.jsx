@@ -59,16 +59,12 @@ const About = () => {
             </div>
             <div className="about-content">
               <p className="bio-text">
-                Hi everyone! My name is <span className="highlight">Emandoyesus Tesfaye</span>. I'm a Full Stack developer
-                from Ethiopia. I have experience in web development using modern technologies.
-                I really enjoy what I do right now; in my opinion, creating programs is not just a job,
-                but also an art that has aesthetic value.
+                Hi! I'm <span className="highlight">Emandoyesus Tesfaye</span>, a Full Stack Developer from Ethiopia.
+                I specialize in building modern web applications with clean code and exceptional user experiences.
               </p>
               <p className="bio-text">
-                My job is to build your idea to be functional and user-friendly yet still attractive.
-                In addition, I provide a personal touch to your product and ensure that the product catches
-                attention and is easy to use. My goal is to convey your message and identity in the most
-                creative way. If you are interested in hiring me, please contact me!
+                I transform ideas into functional, beautiful products that users love. Every project is an opportunity
+                to blend creativity with technical excellence, ensuring your vision comes to life in the most impactful way.
               </p>
             </div>
           </div>
@@ -110,38 +106,40 @@ const About = () => {
 
       <style>{`
         .about-section {
-          padding-top: 120px;
+          padding-top: 100px;
         }
 
         .section-title-wrapper {
           display: flex;
           align-items: center;
           gap: 1rem;
-          margin-bottom: 2rem;
+          margin-bottom: 2.5rem;
         }
 
         .section-title {
-          font-size: 2rem;
+          font-size: 1.75rem;
           font-weight: 700;
           color: white;
           white-space: nowrap;
         }
 
         .title-line {
-          height: 2px;
-          background: var(--primary-color);
-          width: 100px;
+          height: 3px;
+          background: linear-gradient(to right, var(--primary-color), transparent);
+          flex: 1;
+          max-width: 150px;
           border-radius: 2px;
         }
 
         .about-card {
           display: grid;
-          grid-template-columns: 300px 1fr;
-          gap: 3rem;
-          padding: 3rem;
-          align-items: center;
-          background: rgba(255, 255, 255, 0.03); /* Changed from #111 to glass variable */
+          grid-template-columns: 280px 1fr;
+          gap: 2.5rem;
+          padding: 2.5rem;
+          align-items: start;
+          background: rgba(255, 255, 255, 0.02);
           border: 1px solid var(--glass-border);
+          border-radius: var(--radius-md);
         }
 
         .about-image-wrapper {
@@ -150,12 +148,19 @@ const About = () => {
         }
 
         .image-circle {
-          width: 200px;
-          height: 200px;
+          width: 220px;
+          height: 220px;
           border-radius: 50%;
-          border: 4px solid var(--primary-color);
-          padding: 5px;
+          border: 3px solid var(--primary-color);
+          padding: 6px;
           overflow: hidden;
+          box-shadow: 0 10px 40px rgba(109, 40, 217, 0.2);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-circle:hover {
+          transform: scale(1.05);
+          box-shadow: 0 15px 50px rgba(109, 40, 217, 0.3);
         }
 
         .image-circle img {
@@ -166,35 +171,46 @@ const About = () => {
         }
 
         .bio-text {
-          color: var(--text-secondary); /* Updated variable */
-          font-size: 1.05rem;
-          line-height: 1.8;
-          margin-bottom: 1.5rem;
+          color: var(--text-secondary);
+          font-size: 1rem;
+          line-height: 1.7;
+          margin-bottom: 1.25rem;
+        }
+
+        .bio-text:last-child {
+          margin-bottom: 0;
         }
 
         .highlight {
-          color: var(--primary-color);
-          font-weight: 600;
+          color: white;
+          font-weight: 700;
+          background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         /* Skills */
         .skills-section {
-          margin-top: 5rem;
+          margin-top: 4rem;
         }
 
         .skills-tabs {
           display: flex;
-          gap: 1.5rem;
-          margin-bottom: 2rem;
+          gap: 2rem;
+          margin-bottom: 2.5rem;
+          border-bottom: 1px solid var(--glass-border);
         }
 
         .tab-btn {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           color: var(--text-secondary);
-          padding-bottom: 0.5rem;
-          border-bottom: 2px solid transparent;
-          transition: all 0.3s;
+          padding: 0.75rem 0;
+          border-bottom: 3px solid transparent;
+          transition: all 0.3s ease;
+          position: relative;
+          bottom: -1px;
         }
 
         .tab-btn:hover {
@@ -202,78 +218,105 @@ const About = () => {
         }
 
         .tab-btn.active {
-          color: var(--primary-color);
+          color: white;
           border-bottom-color: var(--primary-color);
         }
 
         .skills-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          gap: 1.25rem;
         }
 
         .skill-box {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 1.25rem;
+          gap: 0.875rem;
+          padding: 1rem 1.25rem;
           border: 1px solid var(--glass-border);
-          background: rgba(255, 255, 255, 0.03);
-          transition: transform 0.3s, border-color 0.3s;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: var(--radius-sm);
+          transition: all 0.3s ease;
         }
 
         .skill-box:hover {
-          transform: translateY(-5px);
+          transform: translateY(-3px);
           border-color: var(--primary-color);
+          background: rgba(255, 255, 255, 0.04);
+          box-shadow: 0 8px 20px rgba(109, 40, 217, 0.15);
         }
 
         .skill-icon {
           color: var(--primary-color);
           display: flex;
           align-items: center;
+          font-size: 1.25rem;
         }
         
         .skill-name {
           font-weight: 600;
+          font-size: 0.9rem;
           color: white;
         }
 
         @media (max-width: 968px) {
+          .about-section {
+            padding-top: 80px;
+          }
+
+          .section-title {
+            font-size: 1.5rem;
+          }
+
           .about-card {
             grid-template-columns: 1fr;
             text-align: center;
-            padding: 2rem;
+            padding: 1.75rem;
+            gap: 2rem;
           }
 
           .image-circle {
-            margin: 0 auto;
+            margin: 0 auto 1.5rem;
+            width: 180px;
+            height: 180px;
             filter: grayscale(0.5);
             border-color: rgba(255, 255, 255, 0.2);
           }
 
+          .bio-text {
+            font-size: 0.9rem;
+            line-height: 1.65;
+          }
+
+          .skills-section {
+            margin-top: 3rem;
+          }
+
+          .skills-tabs {
+            gap: 1.5rem;
+            justify-content: center;
+          }
+
+          .tab-btn {
+            font-size: 0.875rem;
+          }
+
           .skill-icon {
             color: var(--text-secondary);
-          }
-
-          .tab-btn.active {
-            color: white;
-            border-bottom-color: var(--primary-color);
-          }
-
-          .highlight {
-            color: white;
-            text-decoration: underline;
-            text-decoration-color: var(--primary-color);
-          }
-
-          .bio-text {
-            font-size: 0.95rem;
-            line-height: 1.7;
+            font-size: 1.1rem;
           }
 
           .skills-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 0.875rem;
+          }
+
+          .skill-box {
+            padding: 0.875rem 1rem;
+          }
+
+          .skill-name {
+            font-size: 0.85rem;
           }
         }
       `}</style>
