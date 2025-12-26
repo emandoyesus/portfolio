@@ -92,7 +92,7 @@ const Hero = () => {
         }
 
         .greeting {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           color: var(--text-secondary);
           margin-bottom: 0.5rem;
           font-weight: 500;
@@ -225,7 +225,8 @@ const Hero = () => {
 
           .hero-visual {
             order: 1;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            margin-top: 3rem;
           }
 
           .profile-container {
