@@ -19,12 +19,11 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-content">
-        <Link to="/" className="logo">
+        <Link to="/" className="nav-logo">
           <Code2 size={24} color="var(--accent-color)" />
-          <span className="logo-text">Portfolio</span>
         </Link>
 
-        <div className="nav-menu">
+        <div className="nav-links">
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
           <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
           <Link to="/projects" className={`nav-link ${isActive('/projects')}`}>Projects</Link>
@@ -45,40 +44,34 @@ const Navbar = () => {
         }
         
         .navbar.scrolled {
-          padding: 0.8rem 0;
-          background: rgba(3, 3, 5, 0.8);
-          backdrop-filter: blur(12px);
+          padding: 1rem 0;
+          background: rgba(3, 3, 5, 0.85);
+          backdrop-filter: blur(16px);
           border-bottom: 1px solid var(--glass-border);
         }
 
         .nav-content {
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          gap: 1.5rem;
+          justify-content: center; /* Center the group for a balanced look */
+          gap: 2.5rem; /* Exactly the same gap between logo and links */
         }
 
-        .logo {
+        .nav-logo {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          font-weight: 700;
-          font-size: 1.25rem;
-          color: white;
-          flex-shrink: 0;
-        }
-        
-        .logo-text {
-          background: linear-gradient(to right, #fff, #a1a1aa);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+          justify-content: center;
+          transition: transform 0.3s ease;
         }
 
-        .nav-menu {
+        .nav-logo:hover {
+          transform: scale(1.1) rotate(10deg);
+        }
+
+        .nav-links {
           display: flex;
-          gap: 1.5rem;
           align-items: center;
+          gap: 2.5rem; /* Matches the parent gap perfectly */
         }
 
         .nav-link {
@@ -111,17 +104,11 @@ const Navbar = () => {
 
         @media (max-width: 768px) {
           .nav-content {
-             flex-direction: row;
-             justify-content: space-between;
-             padding: 0 1rem;
+            gap: 1.2rem;
           }
-
-          .logo-text {
-            display: none; /* Hide text on very small screens to save space */
-          }
-
-          .nav-menu {
-            gap: 1rem;
+          
+          .nav-links {
+            gap: 1.2rem;
           }
 
           .nav-link {
@@ -130,8 +117,13 @@ const Navbar = () => {
         }
 
         @media (max-width: 480px) {
-          .nav-menu {
-            gap: 0.75rem;
+          .nav-content {
+            gap: 0.8rem;
+            padding: 0 0.5rem;
+          }
+          
+          .nav-links {
+            gap: 0.8rem;
           }
           
           .nav-link {
