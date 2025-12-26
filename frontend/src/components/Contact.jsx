@@ -79,12 +79,12 @@ const Contact = () => {
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" id="name" className="form-input" placeholder="John Doe" required />
+              <input type="text" id="name" className="form-input" placeholder="Your Name" required />
             </div>
 
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" className="form-input" placeholder="john@example.com" required />
+              <input type="email" id="email" className="form-input" placeholder="example@email.com" required />
             </div>
 
             <div className="form-group">
