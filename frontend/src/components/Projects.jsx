@@ -116,11 +116,12 @@ const Projects = () => {
     <section id="projects" className="section">
       <div className="container">
         <div className="section-header">
-          <h2 className="heading-md">
-            Past Project <span className="text-gradient">Experience</span>
-          </h2>
+          <div className="section-title-wrapper">
+            <h2 className="section-title">Projects</h2>
+            <div className="title-line"></div>
+          </div>
           <p className="section-description animate-fade-in">
-            Explore the projects I've worked on so far
+            A showcase of my recent work and technical expertise
           </p>
         </div>
 
@@ -187,18 +188,46 @@ const Projects = () => {
       </div>
 
       <style>{`
+        .section {
+          padding-top: 100px;
+        }
+
+        .section-header {
+          margin-bottom: 3rem;
+        }
+
+        .section-title-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: white;
+          white-space: nowrap;
+        }
+
+        .title-line {
+          height: 3px;
+          background: linear-gradient(to right, var(--primary-color), transparent);
+          flex: 1;
+          max-width: 150px;
+          border-radius: 2px;
+        }
+
         .section-description {
           color: var(--text-secondary);
-          margin-top: 1rem;
-          font-size: 1.1rem;
+          font-size: 1rem;
           max-width: 600px;
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 2rem;
-          margin-top: 3rem;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.75rem;
           perspective: 2000px;
         }
 
@@ -224,7 +253,7 @@ const Projects = () => {
             height: 100%;
             border-radius: var(--radius-md);
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.03); /* Moved background here */
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .project-card {
@@ -237,21 +266,21 @@ const Projects = () => {
 
         .card-image {
           position: relative;
-          height: 220px;
+          height: 200px;
           overflow: hidden;
-          background: #2a2a30;
-          transform: translateZ(20px); /* 3D Depth */
+          background: #1a1a1f;
+          transform: translateZ(20px);
         }
 
         .card-image img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.5s ease;
+          transition: transform 0.4s ease;
         }
 
         .tilt-card-container:hover .card-image img {
-          transform: scale(1.1);
+          transform: scale(1.08);
         }
 
         .card-overlay {
@@ -284,40 +313,42 @@ const Projects = () => {
         .icon-btn {
           background: white;
           color: black;
-          padding: 0.75rem;
+          padding: 0.65rem;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: transform 0.2s;
+          transition: all 0.3s ease;
         }
 
         .icon-btn:hover {
-          transform: scale(1.1);
-          background: var(--accent-color);
+          transform: scale(1.15);
+          background: var(--primary-color);
+          color: white;
         }
 
         .card-content {
-          padding: 1.5rem;
+          padding: 1.25rem 1.5rem 1.5rem;
           flex: 1;
           display: flex;
           flex-direction: column;
-          transform: translateZ(30px); /* 3D Depth */
+          transform: translateZ(30px);
           background: transparent;
         }
 
         .project-title {
-          font-size: 1.5rem;
+          font-size: 1.35rem;
           font-weight: 700;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.625rem;
           color: white;
+          line-height: 1.3;
         }
 
         .project-desc {
           color: var(--text-secondary);
-          font-size: 0.95rem;
-          margin-bottom: 1.5rem;
-          line-height: 1.5;
+          font-size: 0.9rem;
+          margin-bottom: 1.25rem;
+          line-height: 1.6;
         }
 
         .tech-stack {
@@ -328,12 +359,19 @@ const Projects = () => {
         }
 
         .tech-tag {
-          font-size: 0.75rem;
-          padding: 0.25rem 0.75rem;
+          font-size: 0.7rem;
+          padding: 0.3rem 0.75rem;
           border-radius: 100px;
-          background: rgba(255, 255, 255, 0.05);
-          color: var(--accent-color);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(109, 40, 217, 0.1);
+          color: var(--primary-color);
+          border: 1px solid rgba(109, 40, 217, 0.2);
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+          background: rgba(109, 40, 217, 0.15);
+          transform: translateY(-2px);
         }
 
         .skeleton-card {
@@ -357,24 +395,50 @@ const Projects = () => {
         }
 
         @media (max-width: 768px) {
+          .section {
+            padding-top: 80px;
+          }
+
+          .section-title {
+            font-size: 1.5rem;
+          }
+
+          .section-header {
+            margin-bottom: 2rem;
+          }
+
           .projects-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
+            gap: 1.25rem;
+          }
+
+          .card-image {
+            height: 180px;
+          }
+
+          .card-content {
+            padding: 1rem 1.25rem 1.25rem;
           }
 
           .project-title {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
+          }
+
+          .project-desc {
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
           }
 
           .project-article {
             background: rgba(0, 0, 0, 0.2);
-            padding: 0;
           }
 
           .tech-tag {
             background: rgba(255, 255, 255, 0.03);
             color: var(--text-secondary);
             border-color: var(--glass-border);
+            font-size: 0.65rem;
+            padding: 0.25rem 0.65rem;
           }
         }
       `}</style>
