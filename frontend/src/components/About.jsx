@@ -117,8 +117,8 @@ const About = () => {
         }
 
         .section-title {
-          font-size: 2rem;
-          font-weight: 700;
+          font-size: 2.2rem;
+          font-weight: 800;
           color: white;
           white-space: nowrap;
         }
@@ -172,8 +172,8 @@ const About = () => {
 
         .bio-text {
           color: var(--text-secondary);
-          font-size: 1.05rem;
-          line-height: 1.7;
+          font-size: 1.1rem;
+          line-height: 1.8;
           margin-bottom: 1.25rem;
         }
 
@@ -255,7 +255,7 @@ const About = () => {
         
         .skill-name {
           font-weight: 600;
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: white;
         }
 

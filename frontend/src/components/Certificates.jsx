@@ -96,7 +96,7 @@ const Certificates = () => {
 
         .section-description {
           color: var(--text-secondary);
-          font-size: 1.05rem;
+          font-size: 1.1rem;
           max-width: 600px;
         }
 
@@ -108,8 +108,8 @@ const Certificates = () => {
         }
 
         .section-title {
-          font-size: 2rem;
-          font-weight: 700;
+          font-size: 2.2rem;
+          font-weight: 800;
           color: white;
           white-space: nowrap;
         }
@@ -198,17 +198,17 @@ const Certificates = () => {
         }
 
         .cert-title {
-          font-size: 1.3rem;
+          font-size: 1.35rem;
           font-weight: 700;
           color: white;
-          margin-bottom: 0.4rem;
-          line-height: 1.3;
+          margin-bottom: 0.5rem;
+          line-height: 1.4;
         }
 
         .cert-issuer {
           color: var(--primary-color);
           font-weight: 600;
-          font-size: 0.95rem;
+          font-size: 1rem;
         }
 
         .cert-meta {
@@ -232,8 +232,8 @@ const Certificates = () => {
         }
 
         .cert-tag {
-          font-size: 0.75rem;
-          padding: 0.3rem 0.7rem;
+          font-size: 0.8rem;
+          padding: 0.3rem 0.75rem;
           background: rgba(109, 40, 217, 0.1);
           color: var(--primary-color);
           border: 1px solid rgba(109, 40, 217, 0.2);
