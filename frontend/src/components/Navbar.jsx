@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Code2 } from 'lucide-react';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -21,31 +20,17 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-content">
         <Link to="/" className="logo">
-          <Code2 size={32} color="var(--accent-color)" />
+          <Code2 size={24} color="var(--accent-color)" />
           <span className="logo-text">Portfolio</span>
         </Link>
 
-        <div className="desktop-menu">
+        <div className="nav-menu">
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
           <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
           <Link to="/projects" className={`nav-link ${isActive('/projects')}`}>Projects</Link>
           <Link to="/certificates" className={`nav-link ${isActive('/certificates')}`}>Certificates</Link>
           <Link to="/contact" className={`nav-link ${isActive('/contact')}`}>Contact</Link>
         </div>
-
-        <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-
-        {isOpen && (
-          <div className="mobile-menu glass-card">
-            <Link to="/" className={`mobile-nav-link ${isActive('/')}`} onClick={() => setIsOpen(false)}>Home</Link>
-            <Link to="/about" className={`mobile-nav-link ${isActive('/about')}`} onClick={() => setIsOpen(false)}>About</Link>
-            <Link to="/projects" className={`mobile-nav-link ${isActive('/projects')}`} onClick={() => setIsOpen(false)}>Projects</Link>
-            <Link to="/certificates" className={`mobile-nav-link ${isActive('/certificates')}`} onClick={() => setIsOpen(false)}>Certificates</Link>
-            <Link to="/contact" className={`mobile-nav-link ${isActive('/contact')}`} onClick={() => setIsOpen(false)}>Contact</Link>
-          </div>
-        )}
       </div>
 
       <style>{`
@@ -60,7 +45,7 @@ const Navbar = () => {
         }
         
         .navbar.scrolled {
-          padding: 1rem 0;
+          padding: 0.8rem 0;
           background: rgba(3, 3, 5, 0.8);
           backdrop-filter: blur(12px);
           border-bottom: 1px solid var(--glass-border);
@@ -70,6 +55,7 @@ const Navbar = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          gap: 1.5rem;
         }
 
         .logo {
@@ -77,8 +63,9 @@ const Navbar = () => {
           align-items: center;
           gap: 0.5rem;
           font-weight: 700;
-          font-size: 1.5rem;
+          font-size: 1.25rem;
           color: white;
+          flex-shrink: 0;
         }
         
         .logo-text {
@@ -88,16 +75,19 @@ const Navbar = () => {
           -webkit-text-fill-color: transparent;
         }
 
-        .desktop-menu {
+        .nav-menu {
           display: flex;
-          gap: 2rem;
+          gap: 1.5rem;
+          align-items: center;
         }
 
         .nav-link {
           font-weight: 500;
+          font-size: 0.95rem;
           color: var(--text-secondary);
           transition: color 0.3s ease;
           position: relative;
+          white-space: nowrap;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -119,40 +109,33 @@ const Navbar = () => {
           width: 100%;
         }
 
-        .mobile-toggle {
-          display: none;
-          color: white;
-        }
-
-        .mobile-menu {
-          position: absolute;
-          top: 100%;
-          right: 2rem;
-          width: 200px;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          padding: 1.5rem;
-        }
-
-        .mobile-menu a {
-          color: white;
-          font-weight: 500;
-          transition: color 0.3s ease;
-        }
-
-        .mobile-nav-link.active {
-          color: var(--text-primary) !important;
-          border-left: 2px solid var(--primary-color);
-          padding-left: 8px;
-        }
-
         @media (max-width: 768px) {
-          .desktop-menu {
-            display: none;
+          .nav-content {
+             flex-direction: row;
+             justify-content: space-between;
+             padding: 0 1rem;
           }
-          .mobile-toggle {
-            display: block;
+
+          .logo-text {
+            display: none; /* Hide text on very small screens to save space */
+          }
+
+          .nav-menu {
+            gap: 1rem;
+          }
+
+          .nav-link {
+            font-size: 0.85rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nav-menu {
+            gap: 0.75rem;
+          }
+          
+          .nav-link {
+            font-size: 0.75rem;
           }
         }
       `}</style>
