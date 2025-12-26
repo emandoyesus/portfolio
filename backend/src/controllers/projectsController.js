@@ -4,9 +4,26 @@ import {
   createProject
 } from '../models/projectModel.js';
 
+// Optimized in-memory cache
+let projectsCache = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = 1000 * 60 * 15; // 15 minutes cache
+
 export const fetchProjects = async (req, res, next) => {
   try {
+    const now = Date.now();
+
+    // Return cached data if valid
+    if (projectsCache && (now - lastFetchTime < CACHE_DURATION)) {
+      return res.status(200).json(projectsCache);
+    }
+
     const projects = await getAllProjects();
+
+    // Update cache
+    projectsCache = projects;
+    lastFetchTime = now;
+
     res.status(200).json(projects);
   } catch (err) {
     next(err);
@@ -24,7 +41,6 @@ export const fetchProject = async (req, res, next) => {
   }
 };
 
-// simple "admin" endpoint – later you can protect it with auth
 export const addProject = async (req, res, next) => {
   try {
     const { title, description } = req.body;
@@ -33,6 +49,10 @@ export const addProject = async (req, res, next) => {
     }
 
     const project = await createProject(req.body);
+
+    // Invalidate cache when new content is added
+    projectsCache = null;
+
     res.status(201).json(project);
   } catch (err) {
     next(err);

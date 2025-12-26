@@ -135,7 +135,14 @@ const Projects = () => {
                 <article className="project-article">
                   <div className="card-image">
                     {project.image_url ? (
-                      <img src={project.image_url} alt={project.title} />
+                      <img
+                        src={project.image_url}
+                        alt={project.title}
+                        loading="lazy"
+                        decoding="async"
+                        width="400"
+                        height="220"
+                      />
                     ) : (
                       <div className="placeholder-image">
                         <Layers size={48} />

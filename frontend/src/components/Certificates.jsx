@@ -2,83 +2,90 @@ import React from 'react';
 import { ExternalLink, Award, Calendar } from 'lucide-react';
 
 const Certificates = () => {
-    const certifications = [
-        {
-            title: "Programming Fundamentals",
-            issuer: "Udacity",
-            date: "Dec 2025",
-            link: "https://www.udacity.com/certificate/e/3c56be12-dca0-11f0-9964-1b6de304da39",
-            image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000",
-            tags: ["HTML", "CSS", "JS", "UI/UX"]
-        },
-        {
-            title: "Full-Stack Web Development",
-            issuer: "FreeCodeCamp",
-            date: "soon",
-            link: "#",
-            image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000",
-            tags: ["MERN", "Security"]
-        },
-        {
-            title: "Data Analysis",
-            issuer: "Udacity",
-            date: "soon",
-            link: "#",
-            image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000",
-            tags: ["Data Structures", "Logic"]
-        }
-    ];
+  const certifications = [
+    {
+      title: "Programming Fundamentals",
+      issuer: "Udacity",
+      date: "Dec 2025",
+      link: "https://www.udacity.com/certificate/e/3c56be12-dca0-11f0-9964-1b6de304da39",
+      image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000",
+      tags: ["HTML", "CSS", "JS", "UI/UX"]
+    },
+    {
+      title: "Full-Stack Web Development",
+      issuer: "FreeCodeCamp",
+      date: "soon",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000",
+      tags: ["MERN", "Security"]
+    },
+    {
+      title: "Data Analysis",
+      issuer: "Udacity",
+      date: "soon",
+      link: "#",
+      image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000",
+      tags: ["Data Structures", "Logic"]
+    }
+  ];
 
-    return (
-        <section id="certificates" className="section certificates-section">
-            <div className="container">
-                <div className="section-header animate-fade-in">
-                    <div className="section-title-wrapper">
-                        <h2 className="section-title">Certifications</h2>
-                        <div className="title-line"></div>
-                    </div>
-                    <p className="section-description">
-                        Validating my skills and expertise through industry-recognized certifications and continuous learning.
-                    </p>
+  return (
+    <section id="certificates" className="section certificates-section">
+      <div className="container">
+        <div className="section-header animate-fade-in">
+          <div className="section-title-wrapper">
+            <h2 className="section-title">Certifications</h2>
+            <div className="title-line"></div>
+          </div>
+          <p className="section-description">
+            Validating my skills and expertise through industry-recognized certifications and continuous learning.
+          </p>
+        </div>
+
+        <div className="certificates-grid">
+          {certifications.map((cert, index) => (
+            <div key={index} className="cert-card glass-card animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+              <div className="cert-image">
+                <img
+                  src={cert.image}
+                  alt={cert.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="180"
+                />
+                <div className="cert-overlay">
+                  <Award className="cert-award-icon" />
+                </div>
+              </div>
+
+              <div className="cert-content">
+                <div className="cert-main">
+                  <h3 className="cert-title">{cert.title}</h3>
+                  <p className="cert-issuer">{cert.issuer}</p>
                 </div>
 
-                <div className="certificates-grid">
-                    {certifications.map((cert, index) => (
-                        <div key={index} className="cert-card glass-card animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                            <div className="cert-image">
-                                <img src={cert.image} alt={cert.title} />
-                                <div className="cert-overlay">
-                                    <Award className="cert-award-icon" />
-                                </div>
-                            </div>
-
-                            <div className="cert-content">
-                                <div className="cert-main">
-                                    <h3 className="cert-title">{cert.title}</h3>
-                                    <p className="cert-issuer">{cert.issuer}</p>
-                                </div>
-
-                                <div className="cert-meta">
-                                    <span className="cert-date">
-                                        <Calendar size={14} /> {cert.date}
-                                    </span>
-                                    <div className="cert-tags">
-                                        {cert.tags.map(tag => (
-                                            <span key={tag} className="cert-tag">{tag}</span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <a href={cert.link} target="_blank" rel="noopener noreferrer" className="cert-link">
-                                    View Certificate <ExternalLink size={16} />
-                                </a>
-                            </div>
-                        </div>
+                <div className="cert-meta">
+                  <span className="cert-date">
+                    <Calendar size={14} /> {cert.date}
+                  </span>
+                  <div className="cert-tags">
+                    {cert.tags.map(tag => (
+                      <span key={tag} className="cert-tag">{tag}</span>
                     ))}
+                  </div>
                 </div>
-            </div>
 
-            <style>{`
+                <a href={cert.link} target="_blank" rel="noopener noreferrer" className="cert-link">
+                  View Certificate <ExternalLink size={16} />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
         .certificates-section {
           padding-top: 100px;
         }
@@ -254,8 +261,8 @@ const Certificates = () => {
           }
         }
       `}</style>
-        </section>
-    );
+    </section>
+  );
 };
 
 export default Certificates;
