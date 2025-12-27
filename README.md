@@ -1,7 +1,7 @@
 # Portfolio - Emandoyesus Tesfaye
 🚀 Full-stack Developer | Building clarity through code 
 
-**Welcome to my personal portfolio! **
+**Welcome to my personal portfolio!**
 This repository showcases my projects, technical skills, and the backend/frontend setup I use to build scalable applications. 
 I specialize in React, Node.js, Express, and database integration.
 
