@@ -159,13 +159,15 @@ const Projects = () => {
                     <div className="card-overlay">
                       <div className="links">
                         {project.github_url && (
-                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="icon-btn">
-                            <Github size={20} />
+                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="project-link">
+                            <Github size={18} />
+                            Code on GitHub
                           </a>
                         )}
                         {project.live_url && (
-                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="icon-btn">
-                            <ExternalLink size={20} />
+                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link">
+                            <ExternalLink size={18} />
+                            Demo
                           </a>
                         )}
                       </div>
@@ -322,7 +324,9 @@ const Projects = () => {
 
         .links {
           display: flex;
+          flex-direction: column;
           gap: 1rem;
+          width: 80%;
           transform: translateY(20px) translateZ(50px); /* 3D Pop */
           transition: transform 0.3s ease;
         }
@@ -331,21 +335,26 @@ const Projects = () => {
           transform: translateY(0) translateZ(50px);
         }
 
-        .icon-btn {
+        .project-link {
           background: white;
           color: black;
-          padding: 0.65rem;
-          border-radius: 50%;
+          padding: 0.8rem 1.2rem;
+          border-radius: var(--radius-sm);
           display: flex;
           align-items: center;
           justify-content: center;
+          gap: 0.75rem;
+          font-weight: 600;
+          font-size: 0.9rem;
           transition: all 0.3s ease;
+          text-decoration: none;
         }
 
-        .icon-btn:hover {
-          transform: scale(1.15);
+        .project-link:hover {
+          transform: translateY(-3px);
           background: var(--primary-color);
           color: white;
+          box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
         }
 
         .card-content {
