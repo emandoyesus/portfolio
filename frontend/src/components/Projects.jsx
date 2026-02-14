@@ -53,8 +53,10 @@ const TiltCard = ({ children, className }) => {
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('All');
   const [page, setPage] = useState(1);
   const [limit] = useState(6);
   const [meta, setMeta] = useState({});
@@ -62,6 +64,17 @@ const Projects = () => {
   useEffect(() => {
     fetchProjects();
   }, [page]);
+
+  useEffect(() => {
+    if (activeFilter === 'All') {
+      setFilteredProjects(projects);
+    } else {
+      setFilteredProjects(projects.filter(p =>
+        p.category?.toLowerCase() === activeFilter.toLowerCase() ||
+        p.tech_stack?.some(t => t.toLowerCase() === activeFilter.toLowerCase())
+      ));
+    }
+  }, [activeFilter, projects]);
 
   const fetchProjects = async () => {
     try {
@@ -83,41 +96,46 @@ const Projects = () => {
   };
 
   const setFallbackData = () => {
-    setProjects([
+    const data = [
       {
         id: 1,
-        title: 'Project Alpha',
-        description: 'A cutting-edge dashboard built with React and D3.js for visualizing complex datasets in real-time.',
-        tech_stack: ['React', 'D3.js', 'Node.js'],
+        title: 'Movie Explore',
+        description: 'A responsive web app that lets users search and explore movies with details like ratings, genres, and trailers.',
+        tech_stack: ['React', 'TMDB API', 'TailwindCSS', 'JavaScript'],
         github_url: '#',
         live_url: '#',
-        image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop'
+        image_url: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000',
+        category: 'Web',
+        featured: true
       },
       {
         id: 2,
-        title: 'Neon E-Commerce',
-        description: 'Full-stack e-commerce platform with stripe integration and neon aesthetics using 3D elements.',
-        tech_stack: ['Next.js', 'Three.js', 'Stripe'],
+        title: 'E-Commerce Website',
+        description: 'A comprehensive E-Commerce website built with NextJS and TailwindCSS. Includes Payment Integration with stripe.',
+        tech_stack: ['Next.js', 'TailwindCSS', 'Stripe', 'Zustand'],
         github_url: '#',
         live_url: '#',
-        image_url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1000&auto=format&fit=crop'
+        image_url: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000',
+        category: 'Web',
+        featured: true
       },
       {
         id: 3,
-        title: 'AI Chat Interface',
-        description: 'Responsive chat interface connecting to LLMs with streaming responses and markdown support.',
-        tech_stack: ['TypeScript', 'OpenAI', 'Tailwind'],
+        title: 'AI Portfolio Website',
+        description: 'A modern, responsive portfolio website built with React and Framer Motion. Features smooth animations and clean design.',
+        tech_stack: ['React', 'Framer Motion', 'CSS3', 'JavaScript'],
         github_url: '#',
         live_url: '#',
-        image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop'
+        image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000',
+        category: 'Web',
+        featured: false
       }
-    ]);
+    ];
+    setProjects(data);
     setMeta({ page: 1, limit, total: 3, totalPages: 1 });
   };
 
-  if (!loading && projects.length === 0 && !error) {
-    setFallbackData();
-  }
+  const categories = ['All', 'Web', 'Mobile', 'UI/UX'];
 
   return (
     <section id="projects" className="section">
@@ -127,9 +145,18 @@ const Projects = () => {
             <h2 className="section-title">Projects</h2>
             <div className="title-line"></div>
           </div>
-          <p className="section-description animate-fade-in">
-            A showcase of my recent work and technical expertise
-          </p>
+
+          <div className="filter-bar animate-fade-in">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`filter-btn ${activeFilter === cat ? 'active' : ''}`}
+                onClick={() => setActiveFilter(cat)}
+              >
+                {cat === 'All' ? 'All Projects' : cat}
+              </button>
+            ))}
+          </div>
         </div>
 
         {loading ? (
@@ -138,40 +165,23 @@ const Projects = () => {
           </div>
         ) : (
           <div className="projects-grid">
-            {projects.map((project) => (
-              <TiltCard key={project.id} className="glass-card project-card">
-                <article className="project-article">
+            {filteredProjects.map((project) => (
+              <TiltCard key={project.id} className="project-card-outer">
+                <article className="project-article glass-card">
                   <div className="card-image">
+                    {project.featured && <span className="featured-badge">Featured</span>}
                     {project.image_url ? (
                       <img
                         src={project.image_url}
                         alt={project.title}
                         loading="lazy"
                         decoding="async"
-                        width="400"
-                        height="220"
                       />
                     ) : (
                       <div className="placeholder-image">
                         <Layers size={48} />
                       </div>
                     )}
-                    <div className="card-overlay">
-                      <div className="links">
-                        {project.github_url && (
-                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="project-link">
-                            <Github size={18} />
-                            Code on GitHub
-                          </a>
-                        )}
-                        {project.live_url && (
-                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link">
-                            <ExternalLink size={18} />
-                            Demo
-                          </a>
-                        )}
-                      </div>
-                    </div>
                   </div>
 
                   <div className="card-content">
@@ -188,22 +198,37 @@ const Projects = () => {
                         ))
                       }
                     </div>
+
+                    <div className="project-actions">
+                      {project.github_url && (
+                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="action-btn github">
+                          <Github size={18} />
+                          Code
+                        </a>
+                      )}
+                      {project.live_url && (
+                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="action-btn demo">
+                          <ExternalLink size={18} />
+                          Demo
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </article>
               </TiltCard>
             ))}
           </div>
         )}
-        {/* Pagination controls */}
-        {!loading && meta && meta.totalPages > 1 && (
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
-            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="btn">
+
+        {!loading && meta && meta.totalPages > 1 && activeFilter === 'All' && (
+          <div className="pagination">
+            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="btn btn-glass">
               Prev
             </button>
-            <div style={{ alignSelf: 'center', color: 'var(--text-secondary)' }}>
+            <div className="page-info">
               Page {meta.page || page} of {meta.totalPages}
             </div>
-            <button onClick={() => setPage(p => Math.min(meta.totalPages || 1, p + 1))} disabled={page >= (meta.totalPages || 1)} className="btn">
+            <button onClick={() => setPage(p => Math.min(meta.totalPages || 1, p + 1))} disabled={page >= (meta.totalPages || 1)} className="btn btn-glass">
               Next
             </button>
           </div>
@@ -217,13 +242,15 @@ const Projects = () => {
 
         .section-header {
           margin-bottom: 3rem;
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
         }
 
         .section-title-wrapper {
           display: flex;
           align-items: center;
           gap: 1rem;
-          margin-bottom: 1rem;
         }
 
         .section-title {
@@ -235,150 +262,128 @@ const Projects = () => {
 
         .title-line {
           height: 3px;
-          background: linear-gradient(to right, var(--primary-color), transparent);
+          background: linear-gradient(to right, #00ff88, transparent);
           flex: 1;
           max-width: 150px;
           border-radius: 2px;
         }
 
-        .section-description {
+        /* Filter Bar */
+        .filter-bar {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .filter-btn {
+          padding: 0.6rem 1.5rem;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           color: var(--text-secondary);
-          font-size: 1.1rem;
-          max-width: 600px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: white;
+        }
+
+        .filter-btn.active {
+          background: #00ff88;
+          color: #030305;
+          border-color: #00ff88;
+          box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .projects-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 1.75rem;
+          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          gap: 2rem;
           perspective: 2000px;
         }
 
-        .tilt-card-container {
+        .project-card-outer {
             transition: transform 0.1s ease-out;
             transform-style: preserve-3d;
             will-change: transform;
             position: relative;
-            padding: 0 !important; /* Override glass-card padding */
-        }
-        
-        .tilt-glow {
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius-md);
-            z-index: 2;
-            pointer-events: none;
         }
 
         .project-article {
             display: flex;
             flex-direction: column;
             height: 100%;
-            border-radius: var(--radius-md);
+            border-radius: 16px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(18, 18, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            padding: 0;
         }
 
-        .project-card {
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          border: 1px solid var(--glass-border); /* Move border to container */
+        .project-card-outer:hover .project-article {
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
         }
 
         .card-image {
           position: relative;
-          height: 200px;
+          height: 220px;
           overflow: hidden;
           background: #1a1a1f;
-          transform: translateZ(20px);
+        }
+
+        .featured-badge {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          background: #00ff88;
+          color: #030305;
+          padding: 0.3rem 0.8rem;
+          border-radius: 50px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          z-index: 10;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .card-image img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.4s ease;
+          transition: transform 0.5s ease;
         }
 
-        .tilt-card-container:hover .card-image img {
-          transform: scale(1.08);
-        }
-
-        .card-overlay {
-          position: absolute;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.6);
-          backdrop-filter: blur(4px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-
-        .tilt-card-container:hover .card-overlay {
-          opacity: 1;
-        }
-
-        .links {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          width: 80%;
-          transform: translateY(20px) translateZ(50px); /* 3D Pop */
-          transition: transform 0.3s ease;
-        }
-
-        .tilt-card-container:hover .links {
-          transform: translateY(0) translateZ(50px);
-        }
-
-        .project-link {
-          background: white;
-          color: black;
-          padding: 0.8rem 1.2rem;
-          border-radius: var(--radius-sm);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.75rem;
-          font-weight: 600;
-          font-size: 0.9rem;
-          transition: all 0.3s ease;
-          text-decoration: none;
-        }
-
-        .project-link:hover {
-          transform: translateY(-3px);
-          background: var(--primary-color);
-          color: white;
-          box-shadow: 0 10px 20px rgba(109, 40, 217, 0.3);
+        .project-card-outer:hover .card-image img {
+          transform: scale(1.1);
         }
 
         .card-content {
-          padding: 1.25rem 1.5rem 1.5rem;
+          padding: 1.5rem;
           flex: 1;
           display: flex;
           flex-direction: column;
-          transform: translateZ(30px);
-          background: transparent;
         }
 
         .project-title {
           font-size: 1.5rem;
           font-weight: 700;
-          margin-bottom: 0.5rem;
-          color: white;
+          margin-bottom: 0.75rem;
+          color: #00ff88;
           line-height: 1.2;
         }
 
         .project-desc {
           color: var(--text-secondary);
-          font-size: 1rem;
+          font-size: 0.95rem;
           margin-bottom: 1.5rem;
           line-height: 1.6;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
 
         .tech-stack {
@@ -386,89 +391,94 @@ const Projects = () => {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
+          margin-bottom: 1.5rem;
         }
 
         .tech-tag {
-          font-size: 0.8rem;
-          padding: 0.3rem 0.8rem;
+          font-size: 0.75rem;
+          padding: 0.3rem 0.75rem;
           border-radius: 100px;
-          background: rgba(109, 40, 217, 0.1);
-          color: var(--primary-color);
-          border: 1px solid rgba(109, 40, 217, 0.2);
-          font-weight: 600;
-          transition: all 0.3s ease;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--text-secondary);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          font-weight: 500;
         }
 
-        .tech-tag:hover {
-          background: rgba(109, 40, 217, 0.15);
+        /* Project Actions */
+        .project-actions {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        }
+
+        .action-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.7rem;
+          border-radius: 8px;
+          font-weight: 600;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .action-btn.github {
+          background: rgba(255, 255, 255, 0.03);
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-btn.demo {
+          background: rgba(0, 255, 136, 0.1);
+          color: #00ff88;
+          border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .action-btn:hover {
           transform: translateY(-2px);
         }
 
-        .skeleton-card {
-          height: 400px;
-          animation: pulse 2s infinite;
-        }
-        
-        .placeholder-image {
-           width: 100%;
-           height: 100%;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           color: var(--text-secondary);
+        .action-btn.github:hover {
+          background: rgba(255, 255, 255, 0.08);
         }
 
-        @keyframes pulse {
-          0% { background-color: rgba(255,255,255,0.02); }
-          50% { background-color: rgba(255,255,255,0.05); }
-          100% { background-color: rgba(255,255,255,0.02); }
+        .action-btn.demo:hover {
+          background: #00ff88;
+          color: #030305;
+        }
+
+        /* Pagination */
+        .pagination {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          margin-top: 3rem;
+        }
+
+        .page-info {
+          color: var(--text-secondary);
+          font-weight: 500;
         }
 
         @media (max-width: 768px) {
-          .section {
-            padding-top: 80px;
-          }
-
           .section-title {
-            font-size: 1.5rem;
-          }
-
-          .section-header {
-            margin-bottom: 2rem;
+            font-size: 1.8rem;
           }
 
           .projects-grid {
             grid-template-columns: 1fr;
-            gap: 1.25rem;
           }
 
-          .card-image {
-            height: 180px;
+          .filter-bar {
+            gap: 0.5rem;
           }
 
-          .card-content {
-            padding: 1rem 1.25rem 1.25rem;
-          }
-
-          .project-title {
-            font-size: 1.15rem;
-          }
-
-          .project-desc {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-          }
-
-          .project-article {
-            background: rgba(0, 0, 0, 0.2);
-          }
-
-          .tech-tag {
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-secondary);
-            border-color: var(--glass-border);
-            font-size: 0.65rem;
-            padding: 0.25rem 0.65rem;
+          .filter-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
           }
         }
       `}</style>
