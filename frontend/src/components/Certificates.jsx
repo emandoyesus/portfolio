@@ -12,20 +12,20 @@ const Certificates = () => {
       tags: ["HTML", "CSS", "JS", "UI/UX"]
     },
     {
+      title: "Data Analysis",
+      issuer: "Udacity",
+      date: "Jan 2026",
+      link: "https://www.udacity.com/certificate/e/1dee3274-dca6-11f0-b1a3-332a08262887",
+      image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000",
+      tags: ["Data Structures", "Logic"]
+    },
+    {
       title: "Full-Stack Web Development",
       issuer: "FreeCodeCamp",
       date: "soon",
       link: "#",
       image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000",
       tags: ["MERN", "Security"]
-    },
-    {
-      title: "Data Analysis",
-      issuer: "Udacity",
-      date: "soon",
-      link: "#",
-      image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1000",
-      tags: ["Data Structures", "Logic"]
     }
   ];
 

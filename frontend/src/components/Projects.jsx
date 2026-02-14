@@ -55,18 +55,24 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(6);
+  const [meta, setMeta] = useState({});
 
   useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [page]);
 
   const fetchProjects = async () => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(`${apiUrl}/api/projects`);
+      const response = await fetch(`${apiUrl}/api/projects?page=${page}&limit=${limit}`);
       if (!response.ok) throw new Error('Failed to fetch projects');
-      const data = await response.json();
-      setProjects(data);
+      const json = await response.json();
+      const list = json.data || json;
+      const returnedMeta = json.meta || {};
+      setProjects(list);
+      setMeta(returnedMeta);
     } catch (err) {
       console.error(err);
       setError('Could not load projects. Please try again later.');
@@ -106,6 +112,7 @@ const Projects = () => {
         image_url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop'
       }
     ]);
+    setMeta({ page: 1, limit, total: 3, totalPages: 1 });
   };
 
   if (!loading && projects.length === 0 && !error) {
@@ -183,6 +190,20 @@ const Projects = () => {
                 </article>
               </TiltCard>
             ))}
+          </div>
+        )}
+        {/* Pagination controls */}
+        {!loading && meta && meta.totalPages > 1 && (
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
+            <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page <= 1} className="btn">
+              Prev
+            </button>
+            <div style={{ alignSelf: 'center', color: 'var(--text-secondary)' }}>
+              Page {meta.page || page} of {meta.totalPages}
+            </div>
+            <button onClick={() => setPage(p => Math.min(meta.totalPages || 1, p + 1))} disabled={page >= (meta.totalPages || 1)} className="btn">
+              Next
+            </button>
           </div>
         )}
       </div>

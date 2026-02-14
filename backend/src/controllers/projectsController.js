@@ -1,30 +1,39 @@
 import {
   getAllProjects,
   getProjectById,
-  createProject
+  createProject,
+  getProjects,
+  getProjectsCount
 } from '../models/projectModel.js';
 
-// Optimized in-memory cache
-let projectsCache = null;
-let lastFetchTime = 0;
+// Cache map: key -> { data, meta, ts }
+const projectsCache = new Map();
 const CACHE_DURATION = 1000 * 60 * 15; // 15 minutes cache
 
 export const fetchProjects = async (req, res, next) => {
   try {
-    const now = Date.now();
+    const page = Math.max(1, parseInt(req.query.page || '1', 10));
+    const limit = Math.min(Math.max(1, parseInt(req.query.limit || '12', 10)), 100);
+    const q = req.query.q ? String(req.query.q).trim() : '';
 
-    // Return cached data if valid
-    if (projectsCache && (now - lastFetchTime < CACHE_DURATION)) {
-      return res.status(200).json(projectsCache);
+    const cacheKey = `${page}:${limit}:${q}`;
+    const cached = projectsCache.get(cacheKey);
+    const now = Date.now();
+    if (cached && (now - cached.ts < CACHE_DURATION)) {
+      return res.status(200).json({ data: cached.data, meta: cached.meta, cached: true });
     }
 
-    const projects = await getAllProjects();
+    const [projects, total] = await Promise.all([
+      getProjects({ page, limit, search: q }),
+      getProjectsCount(q)
+    ]);
 
-    // Update cache
-    projectsCache = projects;
-    lastFetchTime = now;
+    const totalPages = Math.ceil(total / limit) || 1;
+    const meta = { page, limit, total, totalPages };
 
-    res.status(200).json(projects);
+    projectsCache.set(cacheKey, { data: projects, meta, ts: now });
+
+    res.status(200).json({ data: projects, meta });
   } catch (err) {
     next(err);
   }
@@ -51,7 +60,7 @@ export const addProject = async (req, res, next) => {
     const project = await createProject(req.body);
 
     // Invalidate cache when new content is added
-    projectsCache = null;
+    projectsCache.clear();
 
     res.status(201).json(project);
   } catch (err) {
