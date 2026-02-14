@@ -11,7 +11,6 @@ import {
   Cpu,
   GitBranch,
   Figma,
-  Smartphone,
   Layers
 } from 'lucide-react';
 
