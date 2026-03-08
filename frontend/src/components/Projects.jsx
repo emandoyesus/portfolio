@@ -115,12 +115,12 @@ const Projects = () => {
   return (
     <section id="projects" className="section">
       <div className="container">
-        <div className="section-header">
+        <div className="section-header animate-fade-in">
           <div className="section-title-wrapper">
             <h2 className="section-title">Projects</h2>
             <div className="title-line"></div>
           </div>
-          <p className="section-description animate-fade-in">
+          <p className="section-description">
             A showcase of my recent work and technical expertise
           </p>
         </div>
@@ -131,8 +131,8 @@ const Projects = () => {
           </div>
         ) : (
           <div className="projects-grid">
-            {projects.map((project) => (
-              <TiltCard key={project.id} className="glass-card project-card">
+            {projects.map((project, index) => (
+              <TiltCard key={project.id} className="glass-card project-card animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
                 <article className="project-article">
                   <div className="card-image">
                     {project.image_url ? (
@@ -152,13 +152,13 @@ const Projects = () => {
                     <div className="card-overlay">
                       <div className="links">
                         {project.github_url && (
-                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="icon-btn">
-                            <Github size={20} />
+                          <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="project-btn btn-github">
+                            <Github size={18} /> GitHub
                           </a>
                         )}
                         {project.live_url && (
-                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="icon-btn">
-                            <ExternalLink size={20} />
+                          <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-btn btn-demo">
+                            <ExternalLink size={18} /> Demo
                           </a>
                         )}
                       </div>
@@ -232,13 +232,18 @@ const Projects = () => {
         }
 
         .tilt-card-container {
-            transition: transform 0.1s ease-out;
+            transition: transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
             transform-style: preserve-3d;
             will-change: transform;
             position: relative;
             padding: 0 !important; /* Override glass-card padding */
         }
         
+        .tilt-card-container:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 35px -10px rgba(109, 40, 217, 0.25);
+        }
+
         .tilt-glow {
             position: absolute;
             inset: 0;
@@ -310,21 +315,40 @@ const Projects = () => {
           transform: translateY(0) translateZ(50px);
         }
 
-        .icon-btn {
-          background: white;
-          color: black;
-          padding: 0.65rem;
-          border-radius: 50%;
+        .project-btn {
           display: flex;
           align-items: center;
-          justify-content: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1.2rem;
+          border-radius: var(--radius-sm);
+          font-weight: 600;
+          font-size: 0.9rem;
           transition: all 0.3s ease;
+          text-decoration: none;
         }
 
-        .icon-btn:hover {
-          transform: scale(1.15);
-          background: var(--primary-color);
+        .btn-github {
+          background: rgba(255, 255, 255, 0.1);
           color: white;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(4px);
+        }
+
+        .btn-github:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+          border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-demo {
+          background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+          color: white;
+          box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
+        }
+
+        .btn-demo:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
         }
 
         .card-content {
